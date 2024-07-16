@@ -21,7 +21,8 @@ class AuthRepository implements AuthRepositoryInterface {
 
     public function signup(array $data): mixed {
         return User::create([
-            'name' => $data['name'],
+            'firstname' => $data['firstname'],
+            'lastname' => $data['lastname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
