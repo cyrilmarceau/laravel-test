@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\SignupRequest;
+use App\Http\Resources\UserResource;
 use App\Http\Responses\ApiResponse;
 use App\Repositories\Auth\AuthRepositoryInterface;
 
@@ -21,13 +22,16 @@ class AuthController extends Controller {
             return ApiResponse::error($result['error'], null, 401);
         }
         
-        return ApiResponse::success($result, 'Login successful');
+        return ApiResponse::success([
+            'user' => new UserResource($result['user']),
+            'token' => $result['token']
+        ], 'Login successful');
     }
 
     public function signup(SignupRequest $request){
-        $result = $this->authRepository->signup($request->validated());
+        $user = $this->authRepository->signup($request->validated());
 
-        return ApiResponse::success($result, 'Signup successful');
+        return ApiResponse::success(new UserResource($user), 'Signup successful');
         
     }
 }
