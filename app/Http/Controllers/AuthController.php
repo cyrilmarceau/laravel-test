@@ -31,7 +31,12 @@ class AuthController extends Controller {
     public function signup(SignupRequest $request){
         $user = $this->authRepository->signup($request->validated());
 
-        return ApiResponse::success(new UserResource($user), 'Signup successful');
-        
+        return ApiResponse::success(new UserResource($user), 'Signup successful');   
+    }
+
+    public function logout(){
+        $this->authRepository->logout();
+
+        return ApiResponse::success(null, 'Logout successful');
     }
 }

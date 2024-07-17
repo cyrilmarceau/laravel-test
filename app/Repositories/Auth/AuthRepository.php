@@ -27,4 +27,8 @@ class AuthRepository implements AuthRepositoryInterface {
             'password' => Hash::make($data['password']),
         ]);
     }
+    
+    public function logout(): mixed {
+        return Auth::user()->tokens()->delete();
+    }
 }
