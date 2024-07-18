@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdatePasswordProfilRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Responses\ApiResponse;
@@ -34,5 +35,16 @@ class UserController extends Controller
         return ApiResponse::success([
             'user' => new UserResource($request->user()),
         ], 'Profil mis à jour avec succès');
+    }
+
+    public function updatePassword(UpdatePasswordProfilRequest $request)
+    {
+        $result = $this->userRepository->updatePassword($request->validated());
+
+        if (isset($result)) {
+            return ApiResponse::error('Error', $result, 400);
+        }
+
+        return ApiResponse::success(null, 'Mot de passe mis à jour avec succès');
     }
 }

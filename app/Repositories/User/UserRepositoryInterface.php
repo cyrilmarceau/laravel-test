@@ -10,5 +10,7 @@ interface UserRepositoryInterface
     public function getProfile(User $user): User;
 
     public function updateProfile(array $data): mixed;
+
+    public function updatePassword(array $data): mixed;
 }
 
