@@ -3,7 +3,6 @@
 namespace App\Repositories\User;
 
 use App\Models\User;
-use Illuminate\Auth\Authenticatable;
 
 interface UserRepositoryInterface
 {
