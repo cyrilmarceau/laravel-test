@@ -3,8 +3,12 @@
 namespace App\Repositories\User;
 
 use App\Models\User;
+use Illuminate\Auth\Authenticatable;
 
-interface UserRepositoryInterface {
+interface UserRepositoryInterface
+{
     public function getProfile(User $user): User;
+
+    public function updateProfile(array $data): mixed;
 }
 
