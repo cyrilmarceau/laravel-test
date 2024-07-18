@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Repositories\User;
+namespace App\Repositories\Profile;
 
 use \Auth;
 use App\Models\User;
 
-class UserRepository implements UserRepositoryInterface
+class ProfileRepository implements ProfileRepositoryInterface
 {
     public function getProfile(User $user): User
     {

@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Auth;
+
+use App\Http\Requests\BaseRequest;
+
 
 class SignupRequest extends BaseRequest
 {
@@ -32,7 +35,8 @@ class SignupRequest extends BaseRequest
      *
      * @return array<string, string>
      */
-    public function messages(): array {
+    public function messages(): array
+    {
         return [
             'firstname.required' => 'First name is required',
             'lastname.required' => 'Last name is required',

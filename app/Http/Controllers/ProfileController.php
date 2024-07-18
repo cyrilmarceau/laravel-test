@@ -2,26 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdatePasswordProfilRequest;
-use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Requests\Profile\UpdatePasswordProfilRequest;
+use App\Http\Requests\Profile\UpdateProfileRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Responses\ApiResponse;
+use App\Repositories\Profile\ProfileRepositoryInterface;
 use Illuminate\Http\Request;
-use App\Repositories\User\UserRepositoryInterface;
 
 
-class UserController extends Controller
+
+class ProfileController extends Controller
 {
-    protected $userRepository;
+    protected $profileRepository;
 
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(ProfileRepositoryInterface $profileRepository)
     {
-        $this->userRepository = $userRepository;
+        $this->profileRepository = $profileRepository;
     }
 
     public function getProfile(Request $request)
     {
-        $user = $this->userRepository->getProfile($request->user());
+        $user = $this->profileRepository->getProfile($request->user());
 
         return ApiResponse::success([
             'user' => new UserResource($user),
@@ -30,7 +31,7 @@ class UserController extends Controller
 
     public function updateProfile(UpdateProfileRequest $request)
     {
-        $this->userRepository->updateProfile($request->validated());
+        $this->profileRepository->updateProfile($request->validated());
 
         return ApiResponse::success([
             'user' => new UserResource($request->user()),
@@ -39,7 +40,7 @@ class UserController extends Controller
 
     public function updatePassword(UpdatePasswordProfilRequest $request)
     {
-        $result = $this->userRepository->updatePassword($request->validated());
+        $result = $this->profileRepository->updatePassword($request->validated());
 
         if (isset($result)) {
             return ApiResponse::error('Error', $result, 400);

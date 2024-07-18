@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Repositories\User;
+namespace App\Repositories\Profile;
 
 use App\Models\User;
 
-interface UserRepositoryInterface
+interface ProfileRepositoryInterface
 {
     public function getProfile(User $user): User;
 
