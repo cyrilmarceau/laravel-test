@@ -3,10 +3,10 @@
 namespace App\Repositories\MuscleGroup;
 
 use App\Models\MuscleGroup;
-use App\Repositories\MuscleGroups\MuscleGroupRepositoryInterface;
+use App\Repositories\MuscleGroup\MuscleGroupRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
-class MuscleGroupsRepository implements MuscleGroupRepositoryInterface
+class MuscleGroupRepository implements MuscleGroupRepositoryInterface
 {
     public function index(): Collection
     {

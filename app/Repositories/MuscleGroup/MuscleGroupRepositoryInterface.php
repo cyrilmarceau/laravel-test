@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\MuscleGroups;
+namespace App\Repositories\MuscleGroup;
 
 use Illuminate\Database\Eloquent\Collection;
 
