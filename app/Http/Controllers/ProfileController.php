@@ -24,18 +24,14 @@ class ProfileController extends Controller
     {
         $user = $this->profileRepository->getProfile($request->user());
 
-        return ApiResponse::success([
-            'user' => new UserResource($user),
-        ], "Bon retour $user->firstname 👋");
+        return ApiResponse::success(new UserResource($user), "Bon retour $user->firstname 👋");
     }
 
     public function updateProfile(UpdateProfileRequest $request)
     {
         $this->profileRepository->updateProfile($request->validated());
 
-        return ApiResponse::success([
-            'user' => new UserResource($request->user()),
-        ], 'Profil mis à jour avec succès');
+        return ApiResponse::success(new UserResource($request->user()), 'Profil mis à jour avec succès');
     }
 
     public function updatePassword(UpdatePasswordProfilRequest $request)
