@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\MuscleGroupsController;
+use App\Http\Controllers\MuscleGroupController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +20,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('profile', [UserController::class, 'updateProfile']);
     Route::patch('profile/password', [UserController::class, 'updatePassword']);
 
-    Route::resource('muscle-groups', MuscleGroupsController::class)->only(['index']);
+    Route::resource('muscle-groups', MuscleGroupController::class)->only(['index']);
 });
 

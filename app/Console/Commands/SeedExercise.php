@@ -2,32 +2,32 @@
 
 namespace App\Console\Commands;
 
-use Database\Seeders\MuscleGroupsSeeder;
+use Database\Seeders\ExerciseSeeder;
 use Illuminate\Console\Command;
 
-class SeedMuscleGroups extends Command
+class SeedExercise extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:seed-muscle-groups';
+    protected $signature = 'app:seed-exercise';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Seed predefined exercise';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $seeder = new MuscleGroupsSeeder();
+        $seeder = new ExerciseSeeder();
         $seeder->run();
-        $this->info('Muscle groups seeded successfully!');
+        $this->info('Exercises seeded successfully!');
     }
 }

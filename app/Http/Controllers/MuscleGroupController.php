@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Responses\ApiResponse;
-use App\Repositories\MuscleGroups\MuscleGroupsRepositoryInterface;
+use App\Repositories\MuscleGroups\MuscleGroupRepositoryInterface;
 
-class MuscleGroupsController extends Controller
+class MuscleGroupController extends Controller
 {
 
     protected $muscleGroupsRepository;
 
-    public function __construct(MuscleGroupsRepositoryInterface $muscleGroupsRepository)
+    public function __construct(MuscleGroupRepositoryInterface $muscleGroupsRepository)
     {
         $this->muscleGroupsRepository = $muscleGroupsRepository;
     }

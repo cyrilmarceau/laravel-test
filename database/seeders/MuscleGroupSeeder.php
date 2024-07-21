@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class MuscleGroupsSeeder extends Seeder
+class MuscleGroupSeeder extends Seeder
 {
     /**
      * Run the database seeds.
