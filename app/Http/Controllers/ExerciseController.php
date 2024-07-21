@@ -4,16 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreExerciseRequest;
 use App\Http\Requests\UpdateExerciseRequest;
+use App\Http\Resources\ExerciseRessource;
+use App\Http\Responses\ApiResponse;
 use App\Models\Exercise;
+use App\Repositories\Exercise\ExerciseRepositoryInterface;
 
 class ExerciseController extends Controller
 {
+
+    protected $exerciseRepository;
+
+    public function __construct(ExerciseRepositoryInterface $exerciseRepository) {
+        $this->exerciseRepository = $exerciseRepository;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $exercises = $this->exerciseRepository->index();
+        return ApiResponse::success(
+            ExerciseRessource::collection($exercises),
+            "Exercises retrieved successfully"
+        );
     }
 
     /**

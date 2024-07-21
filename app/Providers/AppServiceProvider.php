@@ -4,12 +4,12 @@ namespace App\Providers;
 
 use App\Repositories\Auth\AuthRepository;
 use App\Repositories\Auth\AuthRepositoryInterface;
+use App\Repositories\Exercise\ExerciseRepository;
+use App\Repositories\Exercise\ExerciseRepositoryInterface;
 use App\Repositories\Profile\ProfileRepository;
 use App\Repositories\Profile\ProfileRepositoryInterface;
 use App\Repositories\MuscleGroup\MuscleGroupRepository;
 use App\Repositories\MuscleGroup\MuscleGroupRepositoryInterface;
-use ExerciseRepository;
-use ExerciseRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

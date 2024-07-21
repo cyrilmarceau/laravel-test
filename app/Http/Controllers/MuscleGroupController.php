@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\MuscleGroupsRessource;
+use App\Http\Resources\MuscleGroupRessource;
 use App\Http\Responses\ApiResponse;
 use App\Repositories\MuscleGroup\MuscleGroupRepositoryInterface;
 
@@ -24,7 +24,7 @@ class MuscleGroupController extends Controller
     {
         $muscleGroups = $this->muscleGroupRepository->index();
         return ApiResponse::success(
-                new MuscleGroupsRessource($muscleGroups),
+            MuscleGroupRessource::collection($muscleGroups),
             'Muscle groups retrieved successfully'
         );
     }

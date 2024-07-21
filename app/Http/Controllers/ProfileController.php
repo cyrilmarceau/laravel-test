@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    protected $profileRepository;
+    protected $profileRepository; 
 
     public function __construct(ProfileRepositoryInterface $profileRepository)
     {
