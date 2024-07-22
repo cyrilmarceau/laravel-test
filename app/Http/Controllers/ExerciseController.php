@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreExerciseRequest;
-use App\Http\Requests\UpdateExerciseRequest;
+use App\Http\Requests\Exercise\StoreExerciseRequest;
+use App\Http\Requests\Exercise\UpdateExerciseRequest;
 use App\Http\Resources\ExerciseRessource;
 use App\Http\Responses\ApiResponse;
 use App\Models\Exercise;
 use App\Repositories\Exercise\ExerciseRepositoryInterface;
+use Illuminate\Http\Request;
 
 class ExerciseController extends Controller
 {
@@ -21,8 +22,9 @@ class ExerciseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        
         $exercises = $this->exerciseRepository->index();
         return ApiResponse::success(
             ExerciseRessource::collection($exercises),

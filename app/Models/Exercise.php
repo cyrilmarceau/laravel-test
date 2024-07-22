@@ -15,6 +15,8 @@ class Exercise extends Model
         'description',
     ];
 
+    protected $with = ['muscleGroups'];
+
     public function muscleGroups()
     {
         return $this->belongsToMany(MuscleGroup::class);
