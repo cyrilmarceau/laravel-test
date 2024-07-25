@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 class AuthRepository implements AuthRepositoryInterface {
     public function login(array $credentials): array {
         if (!Auth::attempt($credentials)) {
-            return ['error' => 'Invalid credentials'];
+            return ['general_error' => ['Your credentials are invalid']];
         }
 
         $user = Auth::user();

@@ -2,23 +2,64 @@
 
 namespace App\Http\Responses;
 
+use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\JsonResponse;
 
-class ApiResponse {
-    public static function success($data = null, string $message = 'Success', int $statusCode = 200): JsonResponse {
-        return response()->json([
-            'success' => true,
-            'message' => $message,
-            'data' => $data
-        ], $statusCode);
+class ApiResponse implements Responsable
+{
+
+    protected int $httpCode;
+    protected mixed $data;
+    protected array $messages;
+    protected string $errorMessage;
+
+    public function __construct(
+        int $httpCode,
+        mixed $data = [],
+        array $messages = [],
+        string $errorMessage = ''
+    ) {
+        $this->httpCode = $httpCode;
+        $this->data = $data;
+        $this->messages = $messages;
+        $this->errorMessage = $errorMessage;
     }
 
-    public static function error(string $message = 'Error', $errors = null, int $statusCode = 400): JsonResponse {
-        return response()->json([
-            'success' => false,
-            'message' => $message,
-            'errors' => $errors
-        ], $statusCode);
+    public function toResponse($request): JsonResponse
+    {
+        $payload = match (true) {
+            $this->httpCode >= 500 => [
+                'error_message' => 'Server error'
+            ], //if you don't show server errors to all
+
+            $this->httpCode >= 400 => [
+                // 'error_message' => $this->errorMessage,
+                'success' => false,
+                'message' => $this->messages,
+                'data' => null
+            ],
+
+            $this->httpCode >= 200 => [
+                'success' => true,
+                'message' => $this->messages,
+                'data' => $this->data
+            ],
+        };
+
+        return response()->json(
+            data: $payload,
+            status: $this->httpCode,
+            options: JSON_UNESCAPED_UNICODE
+        );
+    }
+
+    public static function ok(mixed $data, array $messages = []): ApiResponse
+    {
+        return new static(200, $data, $messages);
+    }
+
+    public static function error(array $messages = [], int $httpCode = 400): ApiResponse
+    {
+        return new static($httpCode, messages: $messages);
     }
 }
-

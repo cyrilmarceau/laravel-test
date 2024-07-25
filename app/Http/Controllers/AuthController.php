@@ -7,7 +7,7 @@ use App\Http\Requests\Auth\SignupRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Responses\ApiResponse;
 use App\Repositories\Auth\AuthRepositoryInterface;
-
+use stdClass;
 
 class AuthController extends Controller
 {
@@ -21,27 +21,47 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         $result = $this->authRepository->login($request->validated());
-        if (isset($result['error'])) {
-            return ApiResponse::error($result['error'], null, 401);
+
+        if (isset($result['general_error'])) {
+            $messages = [
+                'non_field_error' => $result['general_error'],
+                'notification_content' => 'Authentication failed',
+            ];
+
+            return ApiResponse::error(messages: $messages, httpCode: 401);
         }
 
-        return ApiResponse::success([
-            'user' => new UserResource($result['user']),
-            'token' => $result['token']
-        ], 'Login successful');
+        $messages = [
+            'non_field_success' => 'Login successful',
+            'notification_content' => 'Welcome back!',
+        ];
+
+        unset($result['user']);
+
+        return ApiResponse::ok(data: $result, messages: $messages);
     }
 
     public function signup(SignupRequest $request)
     {
         $user = $this->authRepository->signup($request->validated());
 
-        return ApiResponse::success(new UserResource($user), 'Signup successful');
+        $messages = [
+            'non_field_success' => 'Signup successful',
+            'notification_content' => 'Welcome to the community!',
+        ];
+
+        return ApiResponse::ok(data: new UserResource($user), messages: $messages);
     }
 
     public function logout()
     {
         $this->authRepository->logout();
 
-        return ApiResponse::success(null, 'Logout successful');
+        $messages = [
+            'non_field_success' => 'Login successful',
+            'notification_content' => 'Welcome back!',
+        ];
+
+        return ApiResponse::ok(data: null, messages: $messages);
     }
 }
