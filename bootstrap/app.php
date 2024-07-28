@@ -22,6 +22,13 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (AuthenticationException $e, Request $request) {
-            return ApiResponse::error("Error", ['message' => 'Token has expired or invalid'], 401);
+            $messages = [
+                'non_field_errors' => [
+                    'Token has expired or invalid',
+                ],
+                'notification_content' => 'Authenticated request failed',
+            ];
+
+            return ApiResponse::error(messages: $messages, httpCode: 401);
         });
     })->create();

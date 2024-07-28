@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    protected $profileRepository; 
+    protected $profileRepository;
 
     public function __construct(ProfileRepositoryInterface $profileRepository)
     {
@@ -24,7 +24,15 @@ class ProfileController extends Controller
     {
         $user = $this->profileRepository->getProfile($request->user());
 
-        return ApiResponse::success(new UserResource($user), "Bon retour $user->firstname 👋");
+        $messages = [
+            'non_field_success' => '',
+            'notification_content' => 'Profil retrieved successfully',
+        ];
+
+        return ApiResponse::ok(
+            data: new UserResource($user),
+            messages: $messages
+        );
     }
 
     public function updateProfile(UpdateProfileRequest $request)
