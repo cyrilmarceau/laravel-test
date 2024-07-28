@@ -27,6 +27,7 @@ class ApiResponse implements Responsable
 
     public function toResponse($request): JsonResponse
     {
+
         $payload = match (true) {
             $this->httpCode >= 500 => [
                 'error_message' => 'Server error'
@@ -35,13 +36,13 @@ class ApiResponse implements Responsable
             $this->httpCode >= 400 => [
                 // 'error_message' => $this->errorMessage,
                 'success' => false,
-                'message' => $this->messages,
+                'messages' => $this->messages,
                 'data' => null
             ],
 
             $this->httpCode >= 200 => [
                 'success' => true,
-                'message' => $this->messages,
+                'messages' => $this->messages,
                 'data' => $this->data
             ],
         };

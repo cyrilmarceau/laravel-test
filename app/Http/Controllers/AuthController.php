@@ -24,7 +24,7 @@ class AuthController extends Controller
 
         if (isset($result['general_error'])) {
             $messages = [
-                'non_field_error' => $result['general_error'],
+                'non_field_errors' => $result['general_error'],
                 'notification_content' => 'Authentication failed',
             ];
 

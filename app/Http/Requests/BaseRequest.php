@@ -13,7 +13,8 @@ class BaseRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize() {
+    public function authorize()
+    {
         return false;
     }
     /**
@@ -21,17 +22,23 @@ class BaseRequest extends FormRequest
      *
      * @return array
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             //
         ];
     }
 
-    public function failedValidation(Validator $validator)  {
-        throw new HttpResponseException(response()->json([
-            'success'   => false,
-            'message'   => 'Validation errors',
-            'data'      => $validator->errors()
-        ],400));
+    public function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(
+            response()->json([
+                'success' => false,
+                'messages' => [
+                    'notification_content' => 'Validation error',
+                ],
+                'data' => $validator->errors()
+            ], 400)
+        );
     }
 }
