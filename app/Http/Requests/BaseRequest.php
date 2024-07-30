@@ -34,10 +34,8 @@ class BaseRequest extends FormRequest
         throw new HttpResponseException(
             response()->json([
                 'success' => false,
-                'messages' => [
-                    'notification_content' => 'Validation error',
-                ],
-                'data' => $validator->errors()
+                'messages' => $validator->errors(),
+                'data' => null
             ], 400)
         );
     }

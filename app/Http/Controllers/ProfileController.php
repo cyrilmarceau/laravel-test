@@ -24,10 +24,7 @@ class ProfileController extends Controller
     {
         $user = $this->profileRepository->getProfile($request->user());
 
-        $messages = [
-            'non_field_success' => '',
-            'notification_content' => 'Profil retrieved successfully',
-        ];
+        $messages = ['non_field_successes' => ['Profile retrieved successfully']];
 
         return ApiResponse::ok(
             data: new UserResource($user),

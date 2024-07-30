@@ -7,7 +7,6 @@ use App\Http\Requests\Auth\SignupRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Responses\ApiResponse;
 use App\Repositories\Auth\AuthRepositoryInterface;
-use stdClass;
 
 class AuthController extends Controller
 {
@@ -23,18 +22,11 @@ class AuthController extends Controller
         $result = $this->authRepository->login($request->validated());
 
         if (isset($result['general_error'])) {
-            $messages = [
-                'non_field_errors' => $result['general_error'],
-                'notification_content' => 'Authentication failed',
-            ];
-
+            $messages = ['non_field_errors' => $result['general_error']];
             return ApiResponse::error(messages: $messages, httpCode: 401);
         }
 
-        $messages = [
-            'non_field_success' => 'Login successful',
-            'notification_content' => 'Welcome back!',
-        ];
+        $messages = ['non_field_successes' => ['Login successful']];
 
         unset($result['user']);
 
@@ -45,10 +37,7 @@ class AuthController extends Controller
     {
         $user = $this->authRepository->signup($request->validated());
 
-        $messages = [
-            'non_field_success' => 'Signup successful',
-            'notification_content' => 'Welcome to the community!',
-        ];
+        $messages = ['non_field_successes' => ['Signup successful']];
 
         return ApiResponse::ok(data: new UserResource($user), messages: $messages);
     }
