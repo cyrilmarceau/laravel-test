@@ -23,9 +23,12 @@ class MuscleGroupController extends Controller
     public function index()
     {
         $muscleGroups = $this->muscleGroupRepository->index();
-        return ApiResponse::success(
-            MuscleGroupRessource::collection($muscleGroups),
-            'Muscle groups retrieved successfully'
+
+        $messages = ['non_field_successes' => ['Muscle groups retrieved successfully']];
+
+        return ApiResponse::ok(
+            data: MuscleGroupRessource::collection($muscleGroups),
+            messages: $messages
         );
     }
 }
