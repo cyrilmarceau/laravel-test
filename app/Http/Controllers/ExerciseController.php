@@ -15,7 +15,8 @@ class ExerciseController extends Controller
 
     protected $exerciseRepository;
 
-    public function __construct(ExerciseRepositoryInterface $exerciseRepository) {
+    public function __construct(ExerciseRepositoryInterface $exerciseRepository)
+    {
         $this->exerciseRepository = $exerciseRepository;
     }
 
@@ -24,11 +25,14 @@ class ExerciseController extends Controller
      */
     public function index(Request $request)
     {
-        
+
         $exercises = $this->exerciseRepository->index();
-        return ApiResponse::success(
-            ExerciseRessource::collection($exercises),
-            "Exercises retrieved successfully"
+
+        $messages = ['non_field_successes' => ["Exercises retrieved successfully"]];
+
+        return ApiResponse::ok(
+            data: ExerciseRessource::collection($exercises),
+            messages: $messages
         );
     }
 
