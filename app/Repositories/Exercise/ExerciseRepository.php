@@ -9,6 +9,11 @@ class ExerciseRepository implements ExerciseRepositoryInterface
 {
     public function index(): Collection
     {
-        return Exercise::with('muscleGroups')->get();
+        return Exercise::get();
+    }
+
+    public function show(Exercise $exercise): Exercise
+    {
+        return $exercise::first();
     }
 }

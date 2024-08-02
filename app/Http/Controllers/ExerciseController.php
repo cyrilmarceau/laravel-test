@@ -37,14 +37,6 @@ class ExerciseController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreExerciseRequest $request)
@@ -57,15 +49,13 @@ class ExerciseController extends Controller
      */
     public function show(Exercise $exercise)
     {
-        //
-    }
+        $exercise = $this->exerciseRepository->show($exercise);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Exercise $exercise)
-    {
-        //
+        $messages = ['non_field_successes' => ["Exercise retrieved successfully"]];
+        return ApiResponse::ok(
+            data: new ExerciseRessource($exercise),
+            messages: $messages
+        );
     }
 
     /**
