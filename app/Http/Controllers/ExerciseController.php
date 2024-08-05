@@ -31,7 +31,7 @@ class ExerciseController extends Controller
         $messages = ['non_field_successes' => ["Exercises retrieved successfully"]];
 
         return ApiResponse::ok(
-            data: ExerciseRessource::collection($exercises),
+            data: $exercises,
             messages: $messages
         );
     }
